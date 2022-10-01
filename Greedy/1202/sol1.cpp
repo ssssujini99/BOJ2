@@ -53,7 +53,7 @@ int main(){
 
         it = ms.lower_bound(max_m);
 
-        if(it != ms.end()){ // 해당 보석의 무게를 담을 수 있는 가방이 존재한다면
+        if(it != ms.end()){ // 해당 보석의 무게를 담을 수 있는 가방이 존재 한다면
             res += max_v;
             // 가방 삭제해주기
             ms.erase(it);
