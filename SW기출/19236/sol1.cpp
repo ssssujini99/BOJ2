@@ -63,27 +63,31 @@ void move_fish(){
 
 
 void backtracking(){
-    if(tmp_res > res) res = tmp_res;
+    if(tmp_res > res) res = tmp_res; // 결과 갱신시키기
 
+    // First step: 물고기 이동시키기
     move_fish();
 
-    for(int i=1; i<4; i++){
+    // Second step: 상어 이동시키기
+    for(int i=1; i<4; i++){ // 상어가 이동할 수 있는 경우는 최대 3가지 (같은 라인에서)
         int s_x = shark.x, s_y = shark.y, s_d = shark.d;
         int n_x, n_y, n_d;
         n_x = shark.x + i * dx[shark.d];
         n_y = shark.y + i * dy[shark.d];
         n_d = shark.d;
 
-        if(!(n_x >=0 && n_x < 4 && n_y >=0 && n_y < 4)) break;
+        if(!(n_x >=0 && n_x < 4 && n_y >=0 && n_y < 4)) break; // 범위 벗어나면 -> out
 
         if(a[n_x][n_y] > 0){ // 유망하다면
             // 상태변화 // 재귀호출 -> 상어 이동 후 물고기 먹기 // 상태복구
 
+            // 이전 상태 기록
             int eaten_fish = a[n_x][n_y];
             map<int, rec> m_tmp = m;
             int a_tmp[4][4]; copy(&a[0][0], &a[0][0] + 16, &a_tmp[0][0]);
             rec shark_tmp = shark;
 
+            // 상태 변화
             eat_fish(n_x, n_y); // 상어가 물고기 먹기
 
             // 재귀 호출
@@ -96,7 +100,7 @@ void backtracking(){
             tmp_res -= eaten_fish;
         }
 
-    }
+    } // for문 끝
 }
 
 int main(){
